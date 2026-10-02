@@ -1,0 +1,31 @@
+relationship ac829685-03c3-4f74-a132-b09688325131
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fLancamentosRealizados.Data
+	toColumn: dCalendario.Data
+
+relationship 8180120c-57dc-4f6c-8875-55a13b27a491
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fOrcamento.Data
+	toColumn: dCalendario.Data
+
+relationship 1d4d26eb-cfd4-4405-82e7-5a61ebf978d9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fVendas.Data
+	toColumn: dCalendario.Data
+
+relationship 6e5665ae-73dc-4837-94d2-889f777feb55
+	fromColumn: fLancamentosRealizados.ContaID
+	toColumn: dPlanoContas.ContaID
+
+relationship 799d10e2-aa6a-4dcd-be68-c89453bf273b
+	fromColumn: fOrcamento.ContaID
+	toColumn: dPlanoContas.ContaID
+
+relationship 81148684-06fd-4003-8abb-0546fe93ce78
+	fromColumn: fLancamentosRealizados.CentroCustoID
+	toColumn: dCentroCusto.CentroCustoID
+
+relationship c9ee9622-b5d4-48d1-85ad-d0272e837445
+	fromColumn: fOrcamento.CentroCustoID
+	toColumn: dCentroCusto.CentroCustoID
+

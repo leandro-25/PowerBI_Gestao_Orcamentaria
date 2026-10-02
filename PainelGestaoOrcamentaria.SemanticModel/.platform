@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "PainelGestaoOrcamentaria"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "43d05011-e446-4db7-ba53-6c50cc5a9ec0"
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "name": "E-Commerce Lavender",
+  "dataColors": [
+    "#6776FB",
+    "#EFADFF",
+    "#FF67BB",
+    "#AFB7FF",
+    "#2C60EA",
+    "#FFE2F2",
+    "#717BC6",
+    "#F49BA2",
+    "#99BBBD",
+    "#FFEEE2",
+    "#ECEFFF",
+    "#D7E2F1"
+  ],
+  "foreground": "#252423",
+  "foregroundNeutralSecondary": "#6C757D",
+  "foregroundNeutralTertiary": "#B3B0AD",
+  "background": "#FFFFFF",
+  "backgroundLight": "#F4F6FA",
+  "backgroundNeutral": "#CED4DA",
+  "tableAccent": "#6776FB",
+  "good": "#14BB3F",
+  "neutral": "#EFADFF",
+  "bad": "#DA1B2E",
+  "maximum": "#6776FB",
+  "center": "#EFADFF",
+  "minimum": "#FFE2F2",
+  "null": "#D7E2F1",
+  "hyperlink": "#6776FB",
+  "visitedHyperlink": "#717BC6",
+  "textClasses": {
+    "callout": {
+      "fontSize": 22,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F0F2E"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#404040"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0F0F2E"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#404040"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "paid": [
+          {
+            "show": true
+          }
+        ],
+        "license": [
+          {
+            "key": "ZoomCharts Drill Down Visuals Developer License (valid until: 2026-10-22);PBID-a70cgf8c5#Cn36Wg94lew52KsQmRWvd8zyHmviB4SWqoSCQbuqELm6S8m/OyrY6MMmvA7Nydagt1F5Uwdl5E3GpJhEFnAuL++Hl1H2C5jntmBEbyP2np/MXVldxpBqwJNDb+FbJ/yxrCmIys6ZXCo8ZyYt54sbNiwDLWirEDox6",
+            "hash": "YPjcCHXoivAYupBN1ogLGs/oWkGc+TOdwSXCsZq7rZa2rhmGbd/rpe4/Bkjx+kizU4oywCvNy+TrQfqYsGBtkOwGzlNfq4mgY9/zi2WEalI/gyYb8nwIcmcs4NOJzVzn7Yk9Kq3ypX/Yuz62IAXtfOfsx01AEC8kOQnhWUmDBeOhpzsopfgzg=="
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontFamily": "Segoe UI Semibold",
+            "fontSize": 12,
+            "fontColor": {
+              "solid": {
+                "color": "#404040"
+              }
+            },
+            "titleWrap": true
+          }
+        ],
+        "subTitle": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 8,
+            "fontColor": {
+              "solid": {
+                "color": "#6C757D"
+              }
+            },
+            "titleWrap": true
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E6E6E6"
+              }
+            },
+            "radius": 6,
+            "width": 1
+          }
+        ],
+        "padding": [
+          {
+            "top": 15,
+            "bottom": 15,
+            "left": 20,
+            "right": 20
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ],
+        "categoryAxis": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 8,
+            "showAxisTitle": false,
+            "gridlineStyle": "dashed"
+          }
+        ],
+        "valueAxis": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 8,
+            "showAxisTitle": false,
+            "gridlineStyle": "dashed"
+          }
+        ],
+        "legend": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 8
+          }
+        ],
+        "labels": [
+          {
+            "fontFamily": "Segoe UI",
+            "fontSize": 8,
+            "color": {
+              "solid": {
+                "color": "#404040"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E8ECF9"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E8ECF9"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

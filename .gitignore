@@ -1,0 +1,51 @@
+# ------------------------------------------------------------------
+# Power BI Desktop / Fabric — arquivos locais, cache e temporários
+# ------------------------------------------------------------------
+.pbi/localSettings.json
+.pbi/cache.abf
+.pbi/cache*.abf
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Power BI — auto-recuperação e arquivos de backup
+*.pbix.bak
+*.pbip.bak
+*.tmp
+~$*
+
+# Artefato final gerado pelo Power BI Desktop (opcional — remova a linha
+# abaixo se quiser versionar também o relatório .pbix)
+# *.pbix
+
+# Power Query / M — credenciais e privacidade
+Credentials.dat
+*.pq
+
+# ------------------------------------------------------------------
+# Windows / macOS / Linux
+# ------------------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ------------------------------------------------------------------
+# Editores e IDEs
+# ------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------------------------------------------
+# Logs e dependências (se o projeto evoluir para código)
+# ------------------------------------------------------------------
+*.log
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -1,0 +1,45 @@
+table dPlanoContas
+	lineageTag: 3bc69f2b-4510-4e97-be7a-2135bef6eae1
+
+	column ContaID
+		dataType: int64
+		isKey
+		lineageTag: 1744f3ea-5a56-4175-a072-ba50d53a477b
+		summarizeBy: sum
+		sourceColumn: ContaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Conta
+		dataType: string
+		lineageTag: 5707e966-ac28-4817-a012-7b2e1512db1b
+		summarizeBy: none
+		sourceColumn: Conta
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria
+		dataType: string
+		lineageTag: 571ab167-7e04-42bb-a688-2e08ca8684f7
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dPlanoContas = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\FATEC\projetos\PBI\Base_PowerBI_Gestao_Orcamentaria.xlsx"), null, true),
+				    Sheet = Source{[Item="dPlanoContas",Kind="Sheet"]}[Data],
+				    Headers = if Text.StartsWith(Table.ColumnNames(Sheet){0}, "Column")
+				        then Table.PromoteHeaders(Sheet, [PromoteAllScalars = true])
+				        else Sheet,
+				    Tipos = Table.TransformColumnTypes(Headers, {{"ContaID", Int64.Type},{"Conta", type text},{"Categoria", type text}})
+				in
+				    Tipos
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+

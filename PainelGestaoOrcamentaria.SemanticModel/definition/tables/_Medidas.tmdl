@@ -1,0 +1,187 @@
+/// Medidas do Painel de Gestao Orcamentaria
+table _Medidas
+	lineageTag: 5e6fa387-6429-4785-b171-63fa21545e61
+
+	measure 'Valor Realizado' = CALCULATE ( SUM ( fLancamentosRealizados[Valor] ) )
+		formatString: #,##0
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: 0840e4a6-aa46-499d-9afe-54441193cae6
+
+	measure 'Valor Orçado' = CALCULATE ( SUM ( fOrcamento[Valor] ), fOrcamento[Cenario] = "Budget" )
+		formatString: #,##0
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: a5b3c814-11ac-4c5a-83a8-fcc69f05187f
+
+	measure 'Valor Forecast' = CALCULATE ( SUM ( fOrcamento[Valor] ), fOrcamento[Cenario] = "Forecast" )
+		formatString: #,##0
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: 95a28fec-d19b-453a-877d-d30fffda5e61
+
+	measure 'Desvio vs Orçado' = [Valor Realizado] - [Valor Orçado]
+		formatString: #,##0
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: 9571dd5d-cad5-4ecf-a1a1-e5c0316a5944
+
+	measure 'Desvio %' = DIVIDE ( [Desvio vs Orçado], [Valor Orçado] )
+		formatString: 0.0%
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: c59664d7-bd5f-43a0-8ee7-9443cda4564c
+
+	measure 'Execução do Orçamento %' = DIVIDE ( [Valor Realizado], [Valor Orçado] )
+		formatString: 0.0%
+		displayFolder: 1. Orcamento e Realizado
+		lineageTag: 86918368-de1d-418e-ba3e-b85f4ca1dc93
+
+	measure 'Custos Fixos' = CALCULATE ( [Valor Realizado], dPlanoContas[Categoria] = "Custo Fixo" )
+		formatString: #,##0
+		displayFolder: 2. Analise de Custos
+		lineageTag: 0aacc6f1-3f97-4cf6-9843-28214bcac0b5
+
+	measure 'Custos Variáveis' = CALCULATE ( [Valor Realizado], dPlanoContas[Categoria] = "Custo Variável" )
+		formatString: #,##0
+		displayFolder: 2. Analise de Custos
+		lineageTag: 5aa3f541-b09d-4492-bdcb-781a7fea7578
+
+	measure 'Despesas Operacionais' = CALCULATE ( [Valor Realizado], dPlanoContas[Categoria] = "Despesa Operacional" )
+		formatString: #,##0
+		displayFolder: 2. Analise de Custos
+		lineageTag: 464ae991-5584-4539-a409-4b154831eda3
+
+	measure 'Realizado Mês Anterior' = CALCULATE ( [Valor Realizado], DATEADD ( dCalendario[Data], -1, MONTH ) )
+		formatString: #,##0
+		displayFolder: 3. Tempo
+		lineageTag: b1687c15-0455-44a1-becc-96c0ebf85794
+
+	measure 'Variação MoM' = [Valor Realizado] - [Realizado Mês Anterior]
+		formatString: #,##0
+		displayFolder: 3. Tempo
+		lineageTag: 0124b567-84ff-4ba2-8bb1-528b54204c6d
+
+	measure 'Variação MoM %' = DIVIDE ( [Variação MoM], [Realizado Mês Anterior] )
+		formatString: 0.0%
+		displayFolder: 3. Tempo
+		lineageTag: 53699c3e-8824-45dc-ae55-7d8b979c4401
+
+	measure 'Acumulado Realizado' =
+			CALCULATE (
+			    [Valor Realizado],
+			    FILTER ( ALLSELECTED ( dCalendario[Data] ), dCalendario[Data] <= MAX ( dCalendario[Data] ) )
+			)
+		formatString: #,##0
+		displayFolder: 3. Tempo
+		lineageTag: e7cb42cf-5638-4d96-a02c-7c7958495335
+
+	measure 'Acumulado Orçado' =
+			CALCULATE (
+			    [Valor Orçado],
+			    FILTER ( ALLSELECTED ( dCalendario[Data] ), dCalendario[Data] <= MAX ( dCalendario[Data] ) )
+			)
+		formatString: #,##0
+		displayFolder: 3. Tempo
+		lineageTag: 6bceece9-c96d-40a6-9df5-49966e7b2211
+
+	measure 'Variação Preço %' = SELECTEDVALUE ( ParamPreco[Valor], 0 )
+		formatString: 0.0%
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 6f73e281-434b-43d0-bf34-30369014cdca
+
+	measure 'Variação Custo %' = SELECTEDVALUE ( ParamCusto[Valor], 0 )
+		formatString: 0.0%
+		displayFolder: 4. Simulacao What-If
+		lineageTag: b70d4ee0-ac1c-421c-96f0-5790ac8087a7
+
+	measure 'Variação Volume %' = SELECTEDVALUE ( ParamVolume[Valor], 0 )
+		formatString: 0.0%
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 714dba26-76c2-41bd-82bf-9f7b764bd595
+
+	measure 'Receita Base' = SUMX ( fVendas, fVendas[Unidades] * fVendas[PrecoUnitario] )
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: f54a402e-427e-4345-8589-96fcbb655d64
+
+	measure 'Custo Variável Base' = SUMX ( fVendas, fVendas[Unidades] * fVendas[CustoVariavelUnitario] )
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: f3a2b83f-a20d-4f3b-81f4-711197025474
+
+	measure 'Receita Simulada' =
+			SUMX (
+			    fVendas,
+			    fVendas[Unidades] * ( 1 + [Variação Volume %] )
+			        * fVendas[PrecoUnitario] * ( 1 + [Variação Preço %] )
+			)
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: aa987d0e-5292-4e1c-bc9e-0c7fb14848e2
+
+	measure 'Custo Variável Simulado' =
+			SUMX (
+			    fVendas,
+			    fVendas[Unidades] * ( 1 + [Variação Volume %] )
+			        * fVendas[CustoVariavelUnitario] * ( 1 + [Variação Custo %] )
+			)
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 48d3d500-5266-461d-85ca-51af6deb7146
+
+	measure 'Margem de Contribuição Simulada' = [Receita Simulada] - [Custo Variável Simulado]
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: b04d3209-a038-4cb4-b18b-760518fca995
+
+	measure 'Custos Fixos Base' = [Custos Fixos]
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: dde16bbe-3b03-4a06-bb61-d5e772e4f023
+
+	measure 'Resultado Simulado' = [Margem de Contribuição Simulada] - [Custos Fixos Base]
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 72dc0e4d-2647-4523-a272-6ffdcb314f8c
+
+	measure 'Margem de Contribuição %' = DIVIDE ( [Margem de Contribuição Simulada], [Receita Simulada] )
+		formatString: 0.0%
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 8cc7e03c-ca21-410e-98a8-95ca550d6c8f
+
+	measure 'Ponto de Equilíbrio (Receita)' = DIVIDE ( [Custos Fixos Base], [Margem de Contribuição %] )
+		formatString: #,##0
+		displayFolder: 4. Simulacao What-If
+		lineageTag: 9c60d8f5-0628-4bd8-81c1-85f871c1fde4
+
+	measure 'Pareto — % Acumulado' =
+			VAR Atual = [Valor Realizado]
+			VAR SomaAcumulada =
+			    SUMX (
+			        FILTER ( ALLSELECTED ( dPlanoContas[Conta] ), [Valor Realizado] >= Atual ),
+			        [Valor Realizado]
+			    )
+			RETURN
+			    DIVIDE (
+			        SomaAcumulada,
+			        CALCULATE ( [Valor Realizado], ALLSELECTED ( dPlanoContas[Conta] ) )
+			    )
+		formatString: 0.0%
+		displayFolder: 5. Pareto
+		lineageTag: 530f13ad-0460-4234-ad94-a7d723cda1f6
+
+	column Value
+		dataType: int64
+		isHidden
+		lineageTag: 0d91ed93-3f4a-4605-916e-299739706d9c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS (
+				    { 1 },
+				    "Value",
+				    1
+				)
+

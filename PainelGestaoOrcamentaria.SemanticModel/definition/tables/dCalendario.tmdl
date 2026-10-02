@@ -1,0 +1,72 @@
+table dCalendario
+	lineageTag: 99d36b4a-0a2f-4e71-bfa5-06d4a18ef11c
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		lineageTag: 38acf466-aa39-4e22-adc2-a3ffd3dc0a6a
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano
+		dataType: int64
+		lineageTag: 5b3d1fbf-4870-465f-bad5-0b481dbe559b
+		summarizeBy: sum
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesNumero
+		dataType: int64
+		lineageTag: e40730fe-70f3-4d91-a7c9-160c1e51c6a6
+		summarizeBy: sum
+		sourceColumn: MesNumero
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: string
+		lineageTag: 589e6d0d-e81e-4caf-880a-05de774c5d84
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: MesNumero
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnoMes
+		dataType: string
+		lineageTag: 1a151fcb-64bf-44bb-b5f8-33616619d8a8
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 072fe3d4-ebf5-4230-8176-3df768a19daa
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCalendario = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\FATEC\projetos\PBI\Base_PowerBI_Gestao_Orcamentaria.xlsx"), null, true),
+				    Sheet = Source{[Item="dCalendario",Kind="Sheet"]}[Data],
+				    Headers = if Text.StartsWith(Table.ColumnNames(Sheet){0}, "Column")
+				        then Table.PromoteHeaders(Sheet, [PromoteAllScalars = true])
+				        else Sheet,
+				    Tipos = Table.TransformColumnTypes(Headers, {{"Data", type date},{"Ano", Int64.Type},{"MesNumero", Int64.Type},{"Mes", type text},{"AnoMes", type text},{"Trimestre", type text}})
+				in
+				    Tipos
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+

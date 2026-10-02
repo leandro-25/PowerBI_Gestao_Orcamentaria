@@ -1,0 +1,22 @@
+/// Parametro What-If: variacao percentual (padrao 0%)
+table ParamVolume
+	lineageTag: 85ff6a09-df30-4f4d-a73a-5cd0679ac573
+
+	column Valor
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e5f18869-8882-49ea-bcc8-a8e9d4cf9f88
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Valor]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ParamVolume = calculated
+		mode: import
+		source =
+				SELECTCOLUMNS (
+				    GENERATESERIES ( -0.3, 0.5, 0.01 ),
+				    "Valor", [Value]
+				)
+

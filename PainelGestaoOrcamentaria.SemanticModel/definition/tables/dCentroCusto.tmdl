@@ -1,0 +1,37 @@
+table dCentroCusto
+	lineageTag: 651e8a98-fbed-4162-91d2-0eaf95df1471
+
+	column CentroCustoID
+		dataType: int64
+		isKey
+		lineageTag: e0287359-d41d-4ecd-a43b-c69bae16098a
+		summarizeBy: sum
+		sourceColumn: CentroCustoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CentroCusto
+		dataType: string
+		lineageTag: db2a4130-ff8f-4c56-9d19-d42981083180
+		summarizeBy: none
+		sourceColumn: CentroCusto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dCentroCusto = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\FATEC\projetos\PBI\Base_PowerBI_Gestao_Orcamentaria.xlsx"), null, true),
+				    Sheet = Source{[Item="dCentroCusto",Kind="Sheet"]}[Data],
+				    Headers = if Text.StartsWith(Table.ColumnNames(Sheet){0}, "Column")
+				        then Table.PromoteHeaders(Sheet, [PromoteAllScalars = true])
+				        else Sheet,
+				    Tipos = Table.TransformColumnTypes(Headers, {{"CentroCustoID", Int64.Type},{"CentroCusto", type text}})
+				in
+				    Tipos
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+

@@ -1,0 +1,12 @@
+ARQUIVOS PARA MONTAR O RELATÓRIO NO POWER BI
+
+1) Importe Base_PowerBI_Gestao_Orcamentaria.xlsx usando Obter Dados > Excel.
+2) Selecione todas as seis abas/tabelas e carregue.
+3) Configure os relacionamentos descritos em Medidas_DAX_e_Modelagem.txt.
+4) Marque dCalendario como tabela de datas.
+5) Crie as medidas DAX do arquivo de medidas.
+6) Monte as três páginas conforme a seção PÁGINAS SUGERIDAS.
+
+IMPORTANTE
+Os dados são sintéticos e fictícios, criados para demonstração e prática. Não representam uma empresa real.
+O arquivo .pbix é o relatório final salvo pelo Power BI Desktop; este pacote fornece a base de dados e as fórmulas para montá-lo, mas não gera um .pbix nativo automaticamente.

@@ -1,0 +1,61 @@
+table fOrcamento
+	lineageTag: 4bcc3394-2af1-4045-85ad-5d65c89424b6
+
+	column Data
+		dataType: dateTime
+		formatString: dd/MM/yyyy
+		lineageTag: d1c5cf81-220f-4ffe-b4cb-59a54613759e
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContaID
+		dataType: int64
+		lineageTag: dfee977a-72eb-41e6-b42e-73c52d305dd1
+		summarizeBy: sum
+		sourceColumn: ContaID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CentroCustoID
+		dataType: int64
+		lineageTag: b1fb7882-4372-453c-aeff-0b58f542bc9a
+		summarizeBy: sum
+		sourceColumn: CentroCustoID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: a27cb4f7-b650-407b-a95e-eaaf27f03dc3
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cenario
+		dataType: string
+		lineageTag: e19d2dfc-0d47-4f76-b9c1-207c0ce85f44
+		summarizeBy: none
+		sourceColumn: Cenario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fOrcamento = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\FATEC\projetos\PBI\Base_PowerBI_Gestao_Orcamentaria.xlsx"), null, true),
+				    Sheet = Source{[Item="fOrcamento",Kind="Sheet"]}[Data],
+				    Headers = if Text.StartsWith(Table.ColumnNames(Sheet){0}, "Column")
+				        then Table.PromoteHeaders(Sheet, [PromoteAllScalars = true])
+				        else Sheet,
+				    Tipos = Table.TransformColumnTypes(Headers, {{"Data", type date},{"ContaID", Int64.Type},{"CentroCustoID", Int64.Type},{"Valor", type number},{"Cenario", type text}})
+				in
+				    Tipos
+
+		annotation PBI_NavigationStepName = Navigation
+
+		annotation PBI_ResultType = Table
+
