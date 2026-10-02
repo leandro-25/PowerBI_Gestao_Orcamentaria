@@ -48,7 +48,7 @@ Power BI Desktop no formato **projetizado (`.pbip` + TMDL)** e pronto para versi
 | Formato **PBIP + TMDL** | Definição textual do modelo semântico |
 | **DAX** | Medidas de execução, desvio, acumulado, Pareto e simulação |
 | **Power Query (M)** | Transformação da base |
-| Temas JSON personalizados | Identidade visual do relatório |
+| **Tema JSON embutido** | Identidade visual do relatório (`Highrise`) |
 | **Git / GitHub** | Versionamento do projeto |
 
 ---
@@ -84,7 +84,8 @@ cd <seu-repo>
 2. Selecione as **seis abas/tabelas** e carregue.
 3. Crie os 7 relacionamentos descritos em **Estrutura do projeto** e marque `dCalendario` como
    **Tabela de datas**.
-4. Crie a tabela `_Medidas` com as medidas de [`Medidas_DAX_e_Modelagem.txt`](Medidas_DAX_e_Modelagem.txt).
+4. Crie a tabela `_Medidas` com as medidas de
+   `PainelGestaoOrcamentaria.SemanticModel/definition/tables/_Medidas.tmdl`.
 5. Crie os parâmetros *what-if* (Modelagem → Novo parâmetro → Intervalo de valores):
 
    | Parâmetro | Faixa | Passo | Padrão |
@@ -93,7 +94,7 @@ cd <seu-repo>
    | `ParamCusto` | −20% a +30% | 1% | 0% |
    | `ParamVolume` | −30% a +50% | 1% | 0% |
 
-6. Monte as três páginas conforme a seção **Páginas Sugeridas** do arquivo de medidas.
+6. Monte as três páginas conforme a seção **Como usar**.
 
 > O `.pbix` final é gerado apenas pelo Power BI Desktop (**Arquivo → Salvar como**). Este pacote
 > fornece a base e as fórmulas para montá-lo, mas não gera um `.pbix` automaticamente.
@@ -134,7 +135,7 @@ Ponto de Equilíbrio (Receita) =
     DIVIDE([Custos Fixos Base], [Margem de Contribuição %])
 ```
 
-A lista completa está em [`Medidas_DAX_e_Modelagem.txt`](Medidas_DAX_e_Modelagem.txt) e em
+A lista completa está em
 `PainelGestaoOrcamentaria.SemanticModel/definition/tables/_Medidas.tmdl`.
 
 **Publicar no GitHub**
@@ -160,11 +161,7 @@ git push
 │       ├── relationships.tmdl                 # 7 relacionamentos (1:*, filtro único)
 │       └── model.tmdl
 ├── Base_PowerBI_Gestao_Orcamentaria.xlsx      # Base de dados (6 abas/tabelas)
-├── Medidas_DAX_e_Modelagem.txt                # Todas as medidas + modelo + páginas
-├── LEIA-ME.txt                                # Instruções rápidas de montagem
-├── Arquivos_PowerBI_Gestao_Orcamentaria.zip   # Pacote compactado da base + documentação
 ├── screenshots/                               # Imagens usadas neste README
-├── *.json                                     # Temas personalizados do relatório
 └── .pbir/                                     # Metadados de estado do Power BI Desktop
 ```
 
@@ -186,19 +183,6 @@ Relacionamentos (direção de filtro única, das dimensões para as fatos):
 - `dCalendario[Data]` 1:\* `fLancamentosRealizados[Data]`, `fOrcamento[Data]`, `fVendas[Data]`
 - `dPlanoContas[ContaID]` 1:\* `fLancamentosRealizados[ContaID]`, `fOrcamento[ContaID]`
 - `dCentroCusto[CentroCustoID]` 1:\* `fLancamentosRealizados[CentroCustoID]`, `fOrcamento[CentroCustoID]`
-
-### Temas
-
-O relatório usa o tema embutido `sqlbi.json`. Na raiz há temas alternativos que podem ser
-importados pelo **Visualizar → Temas → Procurar temas**:
-
-| Arquivo | Nome do tema |
-| --- | --- |
-| `earthy-botanical-theme.json` | Earthy Botanical |
-| `dark-ruby-theme.json` | Dark Ruby |
-| `2_Ecommerce_Lavender_Theme.json` | E-Commerce Lavender |
-| `Sales Teal Orange.json` | Forest Green |
-| `Theme_Shopify.json` | Highrise |
 
 ---
 
